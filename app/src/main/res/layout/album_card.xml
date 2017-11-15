@@ -1,7 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="5sp"
+    >
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
@@ -9,7 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="@dimen/card_margin"
-        card_view:cardCornerRadius="@dimen/card_album_radius">
+        android:padding="5sp"
+        card_view:cardBackgroundColor="#6bd5dcdc"
+        card_view:cardCornerRadius="10sp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,7 +28,7 @@
                 >
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="260sp"
+                    android:layout_height="220sp"
                     android:layout_weight="1"
                     android:src="@drawable/bg"
                     />
@@ -81,7 +85,6 @@
                         android:layout_weight="1"
                         android:text="Button" />
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
 
