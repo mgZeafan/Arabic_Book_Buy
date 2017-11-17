@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Arabic_Book_Buy</string>
     <string name="price">Price:</string>
+    <string name="review">Review</string>
+    <string name="download">Download</string>
 </resources>

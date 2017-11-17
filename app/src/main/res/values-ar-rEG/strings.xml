@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Arabic_Book_Buy</string>
+    <string name="price">السعر :</string>
+    <string name="review">الإطلاع</string>
+    <string name="download">التحميل</string>
+</resources>
