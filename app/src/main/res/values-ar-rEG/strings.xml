@@ -4,4 +4,6 @@
     <string name="price">السعر :</string>
     <string name="review">الإطلاع</string>
     <string name="download">التحميل</string>
+    <string name="errorInternet">الأنترنت غير متصل</string>
+
 </resources>
