@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 public class Splash_Layer extends AppCompatActivity {
     Animation anim;
@@ -18,7 +20,9 @@ public class Splash_Layer extends AppCompatActivity {
         new Thread(){
             @Override
             public void run() {
-                super.run();
+                super
+        Fabric.with(this, new Crashlytics()); .run();
+
                 try {
                     sleep(2000);
                         startActivity(new Intent(Splash_Layer.this, MainActivity.class));

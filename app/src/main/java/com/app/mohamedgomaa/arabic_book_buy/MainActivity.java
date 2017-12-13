@@ -4,8 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,6 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -28,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);
+        Fabric.with(this, new Crashlytics());
         GridLayoutManager gridLayoutManager=new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(gridLayoutManager);
         if(new CheckConnection_Internet(this).IsConnection()) {
@@ -39,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         itemAdapter = new ItemAdapter(Books, MainActivity.this);
         recyclerView.setAdapter(itemAdapter);
         itemAdapter.notifyDataSetChanged();
-}
+    }
 
     private void AddEventListener() {
         try {

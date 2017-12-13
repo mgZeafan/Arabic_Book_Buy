@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.vending.billing"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,9 +22,9 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".WebActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c4cd085e82990b45c1cbefedb821c1549ed0e93b" />
     </application>
 
 </manifest>

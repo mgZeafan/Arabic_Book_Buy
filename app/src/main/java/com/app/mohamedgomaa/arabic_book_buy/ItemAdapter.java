@@ -17,6 +17,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.squareup.picasso.Picasso;
@@ -51,7 +52,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder>{
 
     @Override
     public void onBindViewHolder(final Holder holder, final int position) {
-        Picasso.with(context).load(myList.get(position).pth_photo).placeholder(R.drawable.file_wait).error(R.drawable.file_wait).into(holder.img);
+        Picasso.with(context).load(myList.get(position).pth_photo).error(R.drawable.file_wait).into(holder.img);
         holder.txtPrice.setText(holder.txtPrice.getText()+ String.valueOf(myList.get(position).price));
         if(Locale.getDefault().getLanguage().equals("ar")) {
             holder.txtDetails.setText(myList.get(position).details_ar);
@@ -62,12 +63,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder>{
             holder.txtTitle.setText(myList.get(position).title_en);
             holder.txtAuthor.setText(myList.get(position).author_en);
         }
-        holder.rvw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                context.startActivity(new Intent(context, WebActivity.class).putExtra("urlPdf",myList.get(position).pth_review));
-            }
-        });
         holder.rvw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,12 +133,17 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder>{
     }
     void OpenFile(int position)
     {
-        File file = mkFolder("Review_" + position + ".pdf");
-        Uri path = Uri.fromFile(file);
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(path, "application/pdf");
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        context.startActivity(intent);
+        try {
+            File file = mkFolder("Review_" + position + ".pdf");
+            Uri path = Uri.fromFile(file);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(path, "application/pdf");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+        }catch (Exception e)
+        {
+            Toast.makeText(context, "download Adobe Reader", Toast.LENGTH_SHORT).show();
+        }
     }
     private class  Download_file extends AsyncTask<String,Integer,String>
     {

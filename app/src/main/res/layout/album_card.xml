@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5sp"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
@@ -13,33 +14,31 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/card_margin"
         android:padding="5sp"
-        card_view:cardBackgroundColor="#6bd5dcdc"
+        card_view:cardBackgroundColor="#8f7d7e7e"
         card_view:cardCornerRadius="10sp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:weightSum="5"
             >
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1.5"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:orientation="vertical"
-                android:ems="5"
                 >
                 <ImageView
                     android:id="@+id/imgbook"
-                    android:padding="10sp"
-                    android:layout_width="120sp"
-                    android:layout_height="220sp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200sp"
                     android:src="@drawable/bg"
+                    android:scaleType="fitXY"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/price"
-                    android:layout_weight="0"
                     android:textSize="25sp"
                     android:padding="5sp"
                     android:text="@string/price"
@@ -48,7 +47,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight=".7"
+                android:layout_weight="2"
                 android:orientation="vertical"
                 >
                 <TextView
@@ -56,7 +55,6 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/titleName"
                     android:padding="5sp"
-                    android:layout_weight="0"
                     android:textSize="30sp"
                     />
                 <TextView
@@ -64,21 +62,30 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/author"
                     android:padding="5sp"
-                    android:layout_weight="0"
                     android:textSize="20sp"
                     />
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
                 <com.borjabravo.readmoretextview.ReadMoreTextView
                     android:layout_width="match_parent"
                     android:id="@+id/details"
                     android:layout_height="wrap_content"
                     android:padding="5sp"
-                    android:layout_weight="1"
                     android:textSize="15sp"
                     app:trimExpandedText="..show more"
                     app:trimCollapsedText="..show less"
                     app:trimMode="trimModeLength"
                     app:trimLength="100"
                     />
+                    </LinearLayout>
+                </ScrollView>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
