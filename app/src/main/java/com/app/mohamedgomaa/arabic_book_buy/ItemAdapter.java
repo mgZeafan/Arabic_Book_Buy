@@ -1,5 +1,6 @@
 package com.app.mohamedgomaa.arabic_book_buy;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,15 +11,21 @@ import android.os.AsyncTask;
 import android.os.PowerManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.mohamedgomaa.arabic_book_buy.util.IabHelper;
+import com.app.mohamedgomaa.arabic_book_buy.util.IabResult;
+import com.app.mohamedgomaa.arabic_book_buy.util.Inventory;
+import com.app.mohamedgomaa.arabic_book_buy.util.Purchase;
 import com.borjabravo.readmoretextview.ReadMoreTextView;
 import com.squareup.picasso.Picasso;
 
@@ -31,59 +38,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder>{
+public class ItemAdapter extends BaseAdapter{
     private ArrayList<item> myList;
-    private Context context;
-
-    public ItemAdapter(ArrayList<item> myList, Context myCon) {
+    private Activity context;
+    public ItemAdapter(ArrayList<item> myList, Activity myCon) {
         this.myList = myList;
         this.context = myCon;
-    }
-
-    @Override
-    public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_card, parent, false);
-        Holder holder = new Holder(v);
-        return holder;
-    }
-
-    static int count = 0;
-
-    @Override
-    public void onBindViewHolder(final Holder holder, final int position) {
-        Picasso.with(context).load(myList.get(position).pth_photo).error(R.drawable.file_wait).into(holder.img);
-        holder.txtPrice.setText(holder.txtPrice.getText()+ String.valueOf(myList.get(position).price));
-        if(Locale.getDefault().getLanguage().equals("ar")) {
-            holder.txtDetails.setText(myList.get(position).details_ar);
-            holder.txtTitle.setText(myList.get(position).title_ar);
-            holder.txtAuthor.setText(myList.get(position).author_ar);
-        }else {
-            holder.txtDetails.setText(myList.get(position).details_en);
-            holder.txtTitle.setText(myList.get(position).title_en);
-            holder.txtAuthor.setText(myList.get(position).author_en);
-        }
-        holder.rvw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    if (new CheckConnection_Internet(context).IsConnection()) {
-                        File file=mkFolder("Review_" + position + ".pdf");
-                        if(!file.exists()) {
-                            final Download_file download_file = new Download_file(context,file , position);
-                            Initiazation_PBar();
-                            progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    download_file.cancel(true);
-                                }
-                            });
-                            download_file.execute(myList.get(position).pth_review);
-                        }else {
-                            OpenFile(position);
-                        }
-                    }
-            }
-        });
     }
     ProgressDialog progressDialog;
     void Initiazation_PBar()
@@ -105,31 +67,71 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder>{
         return file;
     }
     @Override
-    public int getItemCount() {
+    public int getCount() {
         return myList.size();
     }
 
-    public static class Holder extends RecyclerView.ViewHolder {
+    @Override
+    public Object getItem(int i) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int position, View v, ViewGroup viewGroup)
+    {
+        final View view = context.getLayoutInflater().inflate(R.layout.album_card, null);
+
+        final int pos=position;
         ImageView img;
         TextView txtTitle;
         com.borjabravo.readmoretextview.ReadMoreTextView txtDetails;
         TextView txtPrice;
         TextView txtAuthor;
-        Button dwn;
         Button rvw;
-        CardView cardView;
-
-        public Holder(View view) {
-            super(view);
-            img = (ImageView) view.findViewById(R.id.imgbook);
-            txtTitle = (TextView) view.findViewById(R.id.titleName);
-            txtDetails = (ReadMoreTextView) view.findViewById(R.id.details);
-            txtPrice = (TextView) view.findViewById(R.id.price);
-            txtAuthor=(TextView)view.findViewById(R.id.author);
-            dwn=(Button)view.findViewById(R.id.download);
-            rvw=(Button)view.findViewById(R.id.review);
-            cardView=(CardView)view.findViewById(R.id.card_view);}
-
+        img =  view.findViewById(R.id.imgbook);
+        txtTitle =  view.findViewById(R.id.titleName);
+        txtDetails = view.findViewById(R.id.details);
+        txtPrice =  view.findViewById(R.id.price);
+        txtAuthor =  view.findViewById(R.id.author);
+        rvw =  view.findViewById(R.id.review);
+        Picasso.with(context).load(myList.get(position).pth_photo).error(R.drawable.file_wait).into(img);
+        txtPrice.setText(txtPrice.getText()+ String.valueOf(myList.get(position).price));
+        if(Locale.getDefault().getLanguage().equals("ar")) {
+            txtDetails.setText(myList.get(position).details_ar);
+            txtTitle.setText(myList.get(position).title_ar);
+            txtAuthor.setText(myList.get(position).author_ar);
+        }else {
+            txtDetails.setText(myList.get(position).details_en);
+            txtTitle.setText(myList.get(position).title_en);
+            txtAuthor.setText(myList.get(position).author_en);
+        }
+        rvw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (new CheckConnection_Internet(context).IsConnection()) {
+                    File file=mkFolder("Review_" + pos + ".pdf");
+                    if(!file.exists()) {
+                        final Download_file download_file = new Download_file(context,file , pos);
+                        Initiazation_PBar();
+                        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                download_file.cancel(true);
+                            }
+                        });
+                        download_file.execute(myList.get(pos).pth_review);
+                    }else {
+                        OpenFile(pos);
+                    }
+                }
+            }
+        });
+        return view;
     }
     void OpenFile(int position)
     {
@@ -236,4 +238,5 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Holder>{
             progressDialog.setProgress(values[0]);
         }
     }
+
 }

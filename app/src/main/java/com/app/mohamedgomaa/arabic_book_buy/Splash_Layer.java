@@ -20,9 +20,7 @@ public class Splash_Layer extends AppCompatActivity {
         new Thread(){
             @Override
             public void run() {
-                super
-        Fabric.with(this, new Crashlytics()); .run();
-
+                super.run();
                 try {
                     sleep(2000);
                         startActivity(new Intent(Splash_Layer.this, MainActivity.class));

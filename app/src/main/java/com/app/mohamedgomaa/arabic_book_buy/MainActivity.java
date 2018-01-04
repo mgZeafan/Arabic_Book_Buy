@@ -1,13 +1,18 @@
 package com.app.mohamedgomaa.arabic_book_buy;
-
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.widget.ImageView;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
-
+import com.app.mohamedgomaa.arabic_book_buy.util.IabHelper;
+import com.app.mohamedgomaa.arabic_book_buy.util.IabResult;
+import com.app.mohamedgomaa.arabic_book_buy.util.Inventory;
+import com.app.mohamedgomaa.arabic_book_buy.util.Purchase;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -17,25 +22,46 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
+    ListView recyclerView;
+    private static final String TAG = "InAppBilling";
+    IabHelper mHelper;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     final String ParentGuid="ListBook";
     ItemAdapter itemAdapter;
     ArrayList<item> Books=new ArrayList<>();
+    static  String ITEM_SKU="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recyclerView = (RecyclerView) findViewById(R.id.recycleView);
-        recyclerView.setHasFixedSize(true);
+        recyclerView =findViewById(R.id.recycleView);
         Fabric.with(this, new Crashlytics());
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(this,1);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        String base64EncodedPublicKey ="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkcGrKLtzEY+LW9cCC" +
+                "xqETJuD5PrZBnSa5txXfO+WN4xwIPMuhqSVq/IhPsmnlh93JC6eVAlmIH4l3RDJkIdCPZllGM1wZ5NkwOqiOFqdW400Terj6Otiuj" +
+                "jq0outuJn6QY2teTjckYdjO6EQn6IP8Rn919jUgBjar+s5dY4lbI09excSq3dm7Ia+tLKEa4iWg+ZgxkMBOU1D0XyMqeQc2+5sGGMp" +
+                "MioxoMko2rOx80Qur4CHrbgu5wunlYCLe9NNe0XFLTFMisDQbVr+HH8c5v+LV8MSSOPfADF6C/ATyY0NwvO8INQdD6EyHefomshOmuAiCXr8cOyu7GNK8MjpLQIDAQAB";
+
+        mHelper = new IabHelper(this, base64EncodedPublicKey);
+        mHelper.startSetup(new
+                                   IabHelper.OnIabSetupFinishedListener() {
+                                       public void onIabSetupFinished(IabResult result) {
+                                           if (!result.isSuccess()) {
+                                               Log.d(TAG, "In-app Billing setup failed: " +
+                                                       result);
+                                           } else {
+                                               Log.d(TAG, "In-app Billing is set up OK");
+                                           }
+                                       }
+                                   });
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
+                , WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         if(new CheckConnection_Internet(this).IsConnection()) {
             Iniliazation();
             AddEventListener();
@@ -45,8 +71,87 @@ public class MainActivity extends AppCompatActivity {
         itemAdapter = new ItemAdapter(Books, MainActivity.this);
         recyclerView.setAdapter(itemAdapter);
         itemAdapter.notifyDataSetChanged();
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v,final MotionEvent event) {
+                ITEM_SKU=Books.get(event.getActionIndex()).book_id;
+                View convertView = v;
+                final Button dwn =convertView.findViewById(R.id.download);
+                dwn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Random Rand = new Random();
+                        int Rndnum = Rand.nextInt(10000) + 1;
+                        mHelper.launchPurchaseFlow(MainActivity.this,ITEM_SKU, 10001,
+                                mPurchaseFinishedListener, "token-" + Rndnum);
+                    }
+                });
+                return false;
+            }
+        });
+
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        if (!mHelper.handleActivityResult(requestCode,
+                resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mHelper != null) mHelper.dispose();
+        mHelper = null;
+    }
+
+    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
+            = new IabHelper.OnIabPurchaseFinishedListener() {
+        public void onIabPurchaseFinished(IabResult result,
+                                          Purchase purchase) {
+            if (result.isFailure()) {
+                // Handle error
+                return;
+            } else if (purchase.getSku().equals(ITEM_SKU)) {
+                consumeItem();
+            }
+
+        }
+    };
+    public void consumeItem() {
+        mHelper.queryInventoryAsync(mReceivedInventoryListener);
+    }
+    IabHelper.QueryInventoryFinishedListener mReceivedInventoryListener
+            = new IabHelper.QueryInventoryFinishedListener() {
+        public void onQueryInventoryFinished(IabResult result,
+                                             Inventory inventory) {
+
+            if (result.isFailure()) {
+                // Handle failure
+            } else {
+                mHelper.consumeAsync(inventory.getPurchase(ITEM_SKU),
+                        mConsumeFinishedListener);
+            }
+        }
+    };
+    IabHelper.OnConsumeFinishedListener mConsumeFinishedListener =
+            new IabHelper.OnConsumeFinishedListener() {
+                public void onConsumeFinished(Purchase purchase,
+                                              IabResult result) {
+
+                    if (result.isSuccess()) {
+                        Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
+
+                        // handle error
+                    }
+                }
+            };
     private void AddEventListener() {
         try {
 
