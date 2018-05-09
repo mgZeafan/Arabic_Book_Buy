@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Mohamed Gooma on 9/18/2017.
  */
 
-public class item implements Serializable{
+ class item implements Serializable{
     String book_id,title_ar,title_en,details_en,details_ar,author_en,author_ar,pth_photo,pth_review,pth_cd,pth_book;
     double price;
 

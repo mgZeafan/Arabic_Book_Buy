@@ -3,7 +3,7 @@
     <string name="app_name">كتاب تعليم اللغة العربية للمبدتئين</string>
     <string name="price">السعر :</string>
     <string name="review">الإطلاع</string>
-    <string name="download">التحميل</string>
+    <string name="download">ِشراء</string>
     <string name="errorInternet">الأنترنت غير متصل</string>
 
 </resources>

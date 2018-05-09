@@ -17,9 +17,6 @@
         android:supportsRtl="true">
         <activity android:name=".MainActivity"/>
 
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="c4cd085e82990b45c1cbefedb821c1549ed0e93b" />
 
         <activity android:name=".Splash_Layer">
             <intent-filter >

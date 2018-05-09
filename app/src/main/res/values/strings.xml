@@ -2,6 +2,6 @@
     <string name="app_name">Arabic Language For beginners</string>
     <string name="price">Price:</string>
     <string name="review">Review</string>
-    <string name="download">Download</string>
+    <string name="download">Buy</string>
     <string name="errorInternet">The Internet is disconnect </string>
 </resources>

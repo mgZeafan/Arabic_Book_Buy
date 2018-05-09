@@ -1,31 +1,25 @@
 package com.app.mohamedgomaa.arabic_book_buy;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.app.mohamedgomaa.arabic_book_buy.util.IabHelper;
 import com.app.mohamedgomaa.arabic_book_buy.util.IabResult;
 import com.app.mohamedgomaa.arabic_book_buy.util.Inventory;
 import com.app.mohamedgomaa.arabic_book_buy.util.Purchase;
-import com.crashlytics.android.Crashlytics;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Random;
-
-import io.fabric.sdk.android.Fabric;
-
 public class MainActivity extends AppCompatActivity {
     ListView recyclerView;
     private static final String TAG = "InAppBilling";
@@ -35,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
     final String ParentGuid="ListBook";
     ItemAdapter itemAdapter;
     ArrayList<item> Books=new ArrayList<>();
-    static  String ITEM_SKU="";
+    static  String ITEM_SKU="zeafan_2018";
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView =findViewById(R.id.recycleView);
-        Fabric.with(this, new Crashlytics());
         String base64EncodedPublicKey ="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkcGrKLtzEY+LW9cCC" +
                 "xqETJuD5PrZBnSa5txXfO+WN4xwIPMuhqSVq/IhPsmnlh93JC6eVAlmIH4l3RDJkIdCPZllGM1wZ5NkwOqiOFqdW400Terj6Otiuj" +
                 "jq0outuJn6QY2teTjckYdjO6EQn6IP8Rn919jUgBjar+s5dY4lbI09excSq3dm7Ia+tLKEa4iWg+ZgxkMBOU1D0XyMqeQc2+5sGGMp" +
@@ -71,24 +65,32 @@ public class MainActivity extends AppCompatActivity {
         itemAdapter = new ItemAdapter(Books, MainActivity.this);
         recyclerView.setAdapter(itemAdapter);
         itemAdapter.notifyDataSetChanged();
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+        recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public boolean onTouch(View v,final MotionEvent event) {
-                ITEM_SKU=Books.get(event.getActionIndex()).book_id;
-                View convertView = v;
-                final Button dwn =convertView.findViewById(R.id.download);
-                dwn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Random Rand = new Random();
-                        int Rndnum = Rand.nextInt(10000) + 1;
-                        mHelper.launchPurchaseFlow(MainActivity.this,ITEM_SKU, 10001,
-                                mPurchaseFinishedListener, "token-" + Rndnum);
-                    }
-                });
-                return false;
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity.this, "hello"+i, Toast.LENGTH_SHORT).show();
             }
         });
+//        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v,final MotionEvent event) {
+//                ITEM_SKU=Books.get(event.getActionIndex()).book_id;
+//
+//                View convertView = v;
+//                final Button dwn =convertView.findViewById(R.id.download);
+//                dwn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Random Rand = new Random();
+//                        int Rndnum = Rand.nextInt(10000) + 1;
+//                        mHelper.launchPurchaseFlow(MainActivity.this,ITEM_SKU, 10001,
+//                                mPurchaseFinishedListener, "token-" + Rndnum);
+//                    }
+//                });
+//                return false;
+//            }
+//        });
 
     }
 
@@ -154,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
             };
     private void AddEventListener() {
         try {
-
             databaseReference.child(ParentGuid).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -187,4 +188,10 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabase=FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference();
     }
+
+    public void Download(View view) {
+        ITEM_SKU=Books.get(0).book_id;
+                        mHelper.launchPurchaseFlow(MainActivity.this,ITEM_SKU, 10001,
+                                mPurchaseFinishedListener, "MyPurchasetoken-");
     }
+}

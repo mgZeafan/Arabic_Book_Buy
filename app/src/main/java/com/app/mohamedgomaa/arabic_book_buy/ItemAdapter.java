@@ -92,13 +92,14 @@ public class ItemAdapter extends BaseAdapter{
         com.borjabravo.readmoretextview.ReadMoreTextView txtDetails;
         TextView txtPrice;
         TextView txtAuthor;
-        Button rvw;
+        Button rvw,dwn;
         img =  view.findViewById(R.id.imgbook);
         txtTitle =  view.findViewById(R.id.titleName);
         txtDetails = view.findViewById(R.id.details);
         txtPrice =  view.findViewById(R.id.price);
         txtAuthor =  view.findViewById(R.id.author);
         rvw =  view.findViewById(R.id.review);
+        dwn=view.findViewById(R.id.download);
         Picasso.with(context).load(myList.get(position).pth_photo).error(R.drawable.file_wait).into(img);
         txtPrice.setText(txtPrice.getText()+ String.valueOf(myList.get(position).price));
         if(Locale.getDefault().getLanguage().equals("ar")) {

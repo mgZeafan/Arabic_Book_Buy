@@ -98,7 +98,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/download" />
+                        android:text="@string/download"
+                        android:onClick="Download"
+                        />
                     <Button
                         android:id="@+id/review"
                         android:layout_width="match_parent"

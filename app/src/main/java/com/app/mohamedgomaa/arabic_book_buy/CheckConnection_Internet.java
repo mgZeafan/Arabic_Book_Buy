@@ -8,10 +8,10 @@ import android.net.NetworkInfo;
     Context context;
     ConnectivityManager ConMng;
 
-     public CheckConnection_Internet(Context context) {
+      CheckConnection_Internet(Context context) {
         this.context = context;
     }
-    public boolean IsConnection()
+     boolean IsConnection()
     {
         ConMng = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
