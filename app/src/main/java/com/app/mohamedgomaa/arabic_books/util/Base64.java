@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.app.mohamedgomaa.arabic_book_buy.util;
+package com.app.mohamedgomaa.arabic_books.util;
 
 // This code was converted from code at http://iharder.sourceforge.net/base64/
 // Lots of extraneous features were removed.
@@ -270,7 +270,7 @@ public class Base64 {
      * @since 1.4
      */
     public static String encode(byte[] source, int off, int len, byte[] alphabet,
-                                boolean doPadding) {
+            boolean doPadding) {
         byte[] outBuff = encode(source, off, len, alphabet, Integer.MAX_VALUE);
         int outLen = outBuff.length;
 

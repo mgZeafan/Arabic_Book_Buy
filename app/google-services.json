@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:511663189798:android:4868bd1c246debd3",
+        "mobilesdk_app_id": "1:511663189798:android:5b36888154c490d5",
         "android_client_info": {
-          "package_name": "com.app.mohamedgomaa.v300_adsinrecyclerview"
+          "package_name": "com.app.mohamedgomaa.arabic_book_buy"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "511663189798-6fflq6mmeeujo8cnf055et190rlajjqt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.mohamedgomaa.arabic_book_buy",
+            "certificate_hash": "bff5e416c95d0437fda54ed44dd42ef6de55c039"
+          }
+        },
         {
           "client_id": "511663189798-jet1h52ur0e52pq53ev0443v0qu9nete.apps.googleusercontent.com",
           "client_type": 3
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "511663189798-jet1h52ur0e52pq53ev0443v0qu9nete.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
@@ -45,6 +58,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "511663189798-qgmej0n8slfvifne9sseg9ahmm0gttjc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.mohamedgomaa.arabic_books",
+            "certificate_hash": "bff5e416c95d0437fda54ed44dd42ef6de55c039"
+          }
+        },
         {
           "client_id": "511663189798-jsbl9p435mrhefkt2vsrsgt1fmgj852t.apps.googleusercontent.com",
           "client_type": 1,
@@ -91,20 +112,12 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:511663189798:android:5b36888154c490d5",
+        "mobilesdk_app_id": "1:511663189798:android:4868bd1c246debd3",
         "android_client_info": {
-          "package_name": "com.app.mohamedgomaa.arabic_book_buy"
+          "package_name": "com.app.mohamedgomaa.v300_adsinrecyclerview"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "511663189798-6fflq6mmeeujo8cnf055et190rlajjqt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.app.mohamedgomaa.arabic_book_buy",
-            "certificate_hash": "bff5e416c95d0437fda54ed44dd42ef6de55c039"
-          }
-        },
         {
           "client_id": "511663189798-jet1h52ur0e52pq53ev0443v0qu9nete.apps.googleusercontent.com",
           "client_type": 3
@@ -120,13 +133,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "511663189798-jet1h52ur0e52pq53ev0443v0qu9nete.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

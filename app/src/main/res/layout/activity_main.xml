@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CC111111"
-    tools:context="com.app.mohamedgomaa.arabic_book_buy.MainActivity">
+    tools:context="com.app.mohamedgomaa.arabic_books.MainActivity">
     <ListView
         android:id="@+id/recycleView"
         android:layout_width="match_parent"

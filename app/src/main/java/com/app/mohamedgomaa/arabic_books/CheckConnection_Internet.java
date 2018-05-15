@@ -1,4 +1,4 @@
-package com.app.mohamedgomaa.arabic_book_buy;
+package com.app.mohamedgomaa.arabic_books;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

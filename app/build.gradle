@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.app.mohamedgomaa.arabic_book_buy"
+        applicationId "com.app.mohamedgomaa.arabic_books"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 7
-        versionName "5.2"
+        versionCode 8
+        versionName "5.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -19,6 +19,7 @@ android {
 
 dependencies {
     implementation 'com.google.firebase:firebase-database:12.0.1'
+    implementation 'com.google.firebase:firebase-crash:12.0.1'
     compile 'com.borjabravo:readmoretextview:2.0.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -30,7 +31,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.intuit.sdp:sdp-android:1.0.3'
-    compile 'com.android.support:support-annotations:27.1.0'
+    compile 'com.android.support:support-annotations:27.1.1'
     compile 'org.jetbrains:annotations-java5:15.0'
-    }
+}
 apply plugin: 'com.google.gms.google-services'

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.app.mohamedgomaa.arabic_book_buy.util;
+package com.app.mohamedgomaa.arabic_books.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

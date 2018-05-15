@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.app.mohamedgomaa.arabic_book_buy.Splash_Layer">
+    tools:context="com.app.mohamedgomaa.arabic_books.Splash_Layer">
 
 
     <ImageView

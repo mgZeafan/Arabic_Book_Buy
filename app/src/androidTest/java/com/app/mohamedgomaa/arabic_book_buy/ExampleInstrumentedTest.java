@@ -1,4 +1,4 @@
-package com.app.mohamedgomaa.arabic_book_buy;
+package com.app.mohamedgomaa.arabic_books;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.app.mohamedgomaa.arabic_book_buy", appContext.getPackageName());
+        assertEquals("com.app.mohamedgomaa.arabic_books", appContext.getPackageName());
     }
 }

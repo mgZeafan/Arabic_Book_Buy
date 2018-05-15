@@ -1,4 +1,4 @@
-package com.app.mohamedgomaa.arabic_book_buy;
+package com.app.mohamedgomaa.arabic_books;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

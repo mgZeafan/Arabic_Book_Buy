@@ -1,32 +1,22 @@
-package com.app.mohamedgomaa.arabic_book_buy;
+package com.app.mohamedgomaa.arabic_books;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.PowerManager;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.mohamedgomaa.arabic_book_buy.util.IabHelper;
-import com.app.mohamedgomaa.arabic_book_buy.util.IabResult;
-import com.app.mohamedgomaa.arabic_book_buy.util.Inventory;
-import com.app.mohamedgomaa.arabic_book_buy.util.Purchase;
-import com.borjabravo.readmoretextview.ReadMoreTextView;
+import com.app.mohamedgomaa.arabic_books.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -38,7 +28,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Random;
 
 public class ItemAdapter extends BaseAdapter{
     private ArrayList<item> myList;
