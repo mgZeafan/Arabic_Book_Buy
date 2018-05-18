@@ -1,5 +1,4 @@
-package com.app.mohamedgomaa.arabic_books;
-
+package com.app.mohamedgomaa.arabic_books.main;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.PowerManager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,10 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.app.mohamedgomaa.arabic_books.R;
+import com.app.mohamedgomaa.arabic_books.model.CheckConnection_Internet;
+import com.app.mohamedgomaa.arabic_books.model.item;
 import com.squareup.picasso.Picasso;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,18 +28,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
-
-public class ItemAdapter extends BaseAdapter{
+public class MainActivityAdapter extends BaseAdapter{
     private ArrayList<item> myList;
-    private Activity context;
-    public ItemAdapter(ArrayList<item> myList, Activity myCon) {
+    private IMainView context;
+    public MainActivityAdapter(ArrayList<item> myList, IMainView myCon) {
         this.myList = myList;
         this.context = myCon;
     }
     ProgressDialog progressDialog;
     void Initiazation_PBar()
     {
-        progressDialog=new ProgressDialog(context);
+        progressDialog=new ProgressDialog((Context) context);
         progressDialog.setMessage("جارى التحميل .. ");
         progressDialog.setProgressStyle(progressDialog.STYLE_HORIZONTAL);
         progressDialog.setProgress(0);
@@ -73,8 +72,10 @@ public class ItemAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View v, ViewGroup viewGroup)
     {
-        final View view = context.getLayoutInflater().inflate(R.layout.album_card, null);
-
+        View view=v;
+        if(v==null) {
+            view=LayoutInflater.from((Context) context).inflate(R.layout.album_card, null);
+        }
         final int pos=position;
         ImageView img;
         TextView txtTitle;
@@ -89,7 +90,7 @@ public class ItemAdapter extends BaseAdapter{
         txtAuthor =  view.findViewById(R.id.author);
         rvw =  view.findViewById(R.id.review);
         dwn=view.findViewById(R.id.download);
-        Picasso.with(context).load(myList.get(position).pth_photo).error(R.drawable.file_wait).into(img);
+        Picasso.with((Context) context).load(myList.get(position).pth_photo).error(R.drawable.file_wait).into(img);
         txtPrice.setText(txtPrice.getText()+ String.valueOf(myList.get(position).price));
         if(Locale.getDefault().getLanguage().equals("ar")) {
             txtDetails.setText(myList.get(position).details_ar);
@@ -100,13 +101,19 @@ public class ItemAdapter extends BaseAdapter{
             txtTitle.setText(myList.get(position).title_en);
             txtAuthor.setText(myList.get(position).author_en);
         }
+        dwn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.SendRequestToPresentet(myList.get(pos).book_id);
+            }
+        });
         rvw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (new CheckConnection_Internet(context).IsConnection()) {
+                if (new CheckConnection_Internet((Context) context).IsConnection()) {
                     File file=mkFolder("Review_" + pos + ".pdf");
                     if(!file.exists()) {
-                        final Download_file download_file = new Download_file(context,file , pos);
+                        final Download_file download_file = new Download_file((Context) context,file , pos);
                         Initiazation_PBar();
                         progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                             @Override
@@ -134,7 +141,7 @@ public class ItemAdapter extends BaseAdapter{
             context.startActivity(intent);
         }catch (Exception e)
         {
-            Toast.makeText(context, "download Adobe Reader", Toast.LENGTH_SHORT).show();
+            context.ShowMsg("download Adobe Reader");
         }
     }
     private class  Download_file extends AsyncTask<String,Integer,String>

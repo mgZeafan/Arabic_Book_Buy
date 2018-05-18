@@ -2,6 +2,9 @@ package com.app.mohamedgomaa.arabic_books;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.app.mohamedgomaa.arabic_books.main.MainActivity;
+
 public class Splash_Layer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

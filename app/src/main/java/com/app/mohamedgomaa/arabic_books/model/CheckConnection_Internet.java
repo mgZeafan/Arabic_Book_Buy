@@ -1,17 +1,17 @@
-package com.app.mohamedgomaa.arabic_books;
+package com.app.mohamedgomaa.arabic_books.model;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
- class CheckConnection_Internet{
+ public class CheckConnection_Internet{
     Context context;
     ConnectivityManager ConMng;
 
-      CheckConnection_Internet(Context context) {
+     public CheckConnection_Internet(Context context) {
         this.context = context;
     }
-     boolean IsConnection()
+    public boolean IsConnection()
     {
         ConMng = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
