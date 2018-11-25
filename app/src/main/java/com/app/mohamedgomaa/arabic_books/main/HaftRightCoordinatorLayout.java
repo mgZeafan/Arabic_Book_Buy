@@ -34,6 +34,17 @@ public class HaftRightCoordinatorLayout extends AbsCoordinatorLayout {
 
     @Override
     public void onTranslateChange(float globalPercent, int index, float relativePercent) {
+        if(globalPercent==0f)
+        {
+            mForegroundView.setScaleX(1f);
+            mForegroundView.setScaleY(1f);
+        }else {
+            mForegroundView.setScaleX(.8f);
+            mForegroundView.setScaleY(.8f);
+
+        }
+        mBackgroundView.setAlpha(globalPercent);
+        mForegroundView.setAlpha(1.5f-globalPercent);
 
     }
 }
