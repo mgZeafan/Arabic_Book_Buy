@@ -5,8 +5,8 @@ android {
         applicationId "com.app.mohamedgomaa.arabic_books"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 10
-        versionName "5.5"
+        versionCode 12
+        versionName "5.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,7 +20,7 @@ android {
 dependencies {
     implementation 'com.google.firebase:firebase-database:12.0.1'
     implementation 'com.google.firebase:firebase-crash:12.0.1'
-    compile 'com.borjabravo:readmoretextview:2.0.1'
+    implementation 'com.borjabravo:readmoretextview:2.0.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -29,9 +29,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:cardview-v7:26.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.intuit.sdp:sdp-android:1.0.3'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.intuit.sdp:sdp-android:1.0.3'
     compile 'com.android.support:support-annotations:27.1.1'
-    compile 'org.jetbrains:annotations-java5:15.0'
+    implementation 'org.jetbrains:annotations-java5:15.0'
+    implementation 'com.xenione.libs:swipe-maker:1.1.1'
 }
 apply plugin: 'com.google.gms.google-services'

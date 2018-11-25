@@ -1,5 +1,4 @@
 package com.app.mohamedgomaa.arabic_books.main;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,7 +13,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.app.mohamedgomaa.arabic_books.R;
 import com.app.mohamedgomaa.arabic_books.model.CheckConnection_Internet;
 import com.app.mohamedgomaa.arabic_books.model.item;

@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     android:background="#CC111111"
     tools:context="com.app.mohamedgomaa.arabic_books.main.MainActivity">
+
     <ListView
         android:id="@+id/recycleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="7dp"
         android:orientation="horizontal"
         android:splitMotionEvents="?attr/isLightTheme">
 

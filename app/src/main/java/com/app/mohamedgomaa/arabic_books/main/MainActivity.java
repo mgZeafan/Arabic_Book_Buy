@@ -1,16 +1,13 @@
 package com.app.mohamedgomaa.arabic_books.main;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.app.mohamedgomaa.arabic_books.R;
 import com.app.mohamedgomaa.arabic_books.model.item;
 import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity implements IMainView {
     ListView recyclerView;
     MainActivityAdapter mainActivityAdapter;
